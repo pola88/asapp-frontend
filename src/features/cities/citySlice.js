@@ -3,6 +3,7 @@ import { getAll } from './cityAPI';
 
 const initialState = {
   all: [],
+  links: {},
   status: 'idle',
 };
 
@@ -13,10 +14,10 @@ const initialState = {
 // typically used to make async requests.
 export const fetchAll = createAsyncThunk(
   'ficty/fetchAll',
-  async () => {
-    const response = await getAll();
+  async (nextPage) => {
+    const response = await getAll(nextPage);
     // The value we return becomes the `fulfilled` action payload
-    return response.data;
+    return response;
   }
 );
 
@@ -35,7 +36,9 @@ export const citySlice = createSlice({
       })
       .addCase(fetchAll.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.all = [...state.all, ...action.payload];
+        const data = action.payload.data;
+        state.all = [...state.all, ...data];
+        state.links = action.payload.links;
       });
   },
 });
@@ -44,6 +47,6 @@ export const citySlice = createSlice({
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file.
 export const selectCities = (state) => state.city.all;
-
+export const selectLinks = (state) => state.city.links;
 
 export default citySlice.reducer;
