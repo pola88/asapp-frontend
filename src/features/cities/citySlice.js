@@ -51,7 +51,11 @@ export const citySlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     searchBy: (state, { payload }) => {
-      state.searchBy = payload;
+      const currentState = current(state);
+      return {
+        ...currentState,
+        searchBy: payload,
+      };
     },
     addCity: (state, { payload }) => {
       // I use current to get the current state, Here, `state` is a `proxy` object

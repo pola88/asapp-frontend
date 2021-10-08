@@ -1,21 +1,23 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectSearchBy, fetchBy } from '../../features/cities/citySlice';
+import { useDispatch } from 'react-redux';
+import { fetchBy, fetchAll, searchBy } from '../../features/cities/citySlice';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 export function CitySearch() {
-  const searchBy = useSelector(selectSearchBy);
   const dispatch = useDispatch();
 
   const searchCity = (event) => {
-    if (event.target.value.length >= 3) {
-      dispatch(fetchBy(event.target.value));
-    } else if (event.target.value.length === 0) {
-      console.log('reset search');
+    const value = event.target.value;
+    if (value.length >= 3) {
+      dispatch(fetchBy(value));
+    } else if (value.length === 0) {
+      dispatch(fetchAll());
     }
+
+    dispatch(searchBy(value));
   };
 
   return (
