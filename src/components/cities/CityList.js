@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { map } from 'ramda';
 import { fetchAll, selectCities, selectLinks } from '../../features/cities/citySlice';
@@ -7,15 +7,6 @@ import Paper from '@mui/material/Paper';
 import CityRow from './CityRow';
 import InfiniteScroll from 'react-infinite-scroll-component';
 // import styles from './CityList.module.css';
-
-const loadMoreItems = (event, nextPage) => {
-  console.log(event.target.scrollTop);
-  if (event.target.scrollTop === 234) {
-    console.log('load next page');
-    nextPage();
-    //user is at the end of the list so load more items
-  }
-};
 
 export function CityList() {
   const cities = useSelector(selectCities);
@@ -27,10 +18,6 @@ export function CityList() {
     console.log(links);
     dispatch(fetchAll(links.next));
   };
-
-  useEffect(() => {
-    dispatch(fetchAll());
-  }, [dispatch]);
 
   const cityRows = map(city => <CityRow key={`row_${city.geonameid}`} city={city} />, cities);
   return <div>

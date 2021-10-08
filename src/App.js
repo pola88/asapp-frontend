@@ -1,11 +1,11 @@
 import React from 'react';
-import { CityList } from './components/cities/CityList';
+import { CityView } from './components/cities/CityView';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <CityList />
+      <CityView />
     </div>
   );
 }
