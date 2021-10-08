@@ -16,7 +16,6 @@ export function CityView() {
   useEffect(() => {
     dispatch(fetchAll()).then(() => setLoading(false));
   }, [dispatch, setLoading]);
-  console.log(loading);
 
   return (
     <div className={styles.Container}>

@@ -1,11 +1,11 @@
+import { doRequest } from "../../helpers/request";
 
 export function getPref(url = `${process.env.REACT_APP_URL}/cities?limit=10`) {
-  return fetch(url)
-    .then(response => response.json());
+  return doRequest(url);
 }
 
 export function pathPref(body) {
-  return fetch(`${process.env.REACT_APP_URL}/preferences/cities`,
+  return doRequest(`${process.env.REACT_APP_URL}/preferences/cities`,
     {
       body: JSON.stringify(body),
       method: 'PATCH',
