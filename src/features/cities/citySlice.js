@@ -16,7 +16,7 @@ const initialState = {
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
 export const fetchAll = createAsyncThunk(
-  'ficty/fetchAll',
+  'city/fetchAll',
   async (nextPage) => {
     const response = await getAll(nextPage);
     // The value we return becomes the `fulfilled` action payload
@@ -25,7 +25,7 @@ export const fetchAll = createAsyncThunk(
 );
 
 export const fetchBy = createAsyncThunk(
-  'ficty/fetchBy',
+  'city/fetchBy',
   async (value) => {
     const response = await search(value);
     // The value we return becomes the `fulfilled` action payload
