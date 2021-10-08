@@ -6,7 +6,7 @@ import List from '@mui/material/List';
 import Paper from '@mui/material/Paper';
 import CityRow from './CityRow';
 import InfiniteScroll from 'react-infinite-scroll-component';
-// import styles from './CityList.module.css';
+import styles from './CityList.module.css';
 
 export function CityList() {
   const cities = useSelector(selectCities);
@@ -21,7 +21,7 @@ export function CityList() {
 
   const cityRows = map(city => <CityRow key={`row_${city.geonameid}`} city={city} />, cities);
   return <div>
-    City List
+    <div className={styles.Title}>City List</div>
     <Paper
       id="scrollablePaper"
       sx={{

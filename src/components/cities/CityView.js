@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchAll } from '../../features/cities/citySlice';
 import { CityList } from './CityList';
-import Loading from '../../assets/loading.gif';
+import { CitySearch } from './CitySearch';
+import { Loading } from '../shared/Loading';
+import styles from './CityView.module.css';
 
 export function CityView() {
   const dispatch = useDispatch();
@@ -14,10 +16,13 @@ export function CityView() {
   console.log(loading);
 
   return (
-    <div>
+    <div className={styles.Container}>
       { loading
-        ? <img alt='loading...' src={Loading} />
-        : <CityList />
+        ? <Loading/>
+        : <div>
+            <CitySearch />
+            <CityList />
+          </div>
       }
     </div>
   );
