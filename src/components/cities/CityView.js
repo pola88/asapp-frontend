@@ -3,8 +3,11 @@ import { useDispatch } from 'react-redux';
 import { fetchAll } from '../../features/cities/citySlice';
 import { CityList } from './CityList';
 import { CitySearch } from './CitySearch';
+import { SelectedCitiesList } from './SelectedCitiesList';
 import { Loading } from '../shared/Loading';
 import styles from './CityView.module.css';
+
+import Grid from '@mui/material/Grid';
 
 export function CityView() {
   const dispatch = useDispatch();
@@ -19,10 +22,15 @@ export function CityView() {
     <div className={styles.Container}>
       { loading
         ? <Loading/>
-        : <div>
-            <CitySearch />
-            <CityList />
-          </div>
+        : <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <CitySearch />
+              <CityList />
+            </Grid>
+            <Grid item xs={6}>
+              <SelectedCitiesList/>
+            </Grid>
+          </Grid>
       }
     </div>
   );

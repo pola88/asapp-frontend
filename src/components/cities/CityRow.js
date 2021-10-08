@@ -1,35 +1,36 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
+import { useDispatch } from 'react-redux';
+import { addCity, removeCity } from '../../features/cities/citySlice';
 
 export default function CityRow({ city }) {
-  const [checked, setChecked] = React.useState([0]);
+  const dispatch = useDispatch();
+  const [checked, setChecked] = useState(false);
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
+  const handleToggle = () => () => {
+    
+    if (checked) {
+      dispatch(removeCity(city));
     } else {
-      newChecked.splice(currentIndex, 1);
+      dispatch(addCity(city));
     }
 
-    setChecked(newChecked);
+    setChecked(!checked);
   };
 
   return (
     <ListItem
       disablePadding
     >
-      <ListItemButton role={undefined} onClick={handleToggle(city.geonameid)} dense>
+      <ListItemButton role={undefined} onClick={handleToggle()} dense>
         <ListItemIcon>
           <Checkbox
             edge="start"
-            checked={checked.indexOf(city.geonameid) !== -1}
+            checked={checked}
             tabIndex={-1}
             disableRipple
             inputProps={{ 'aria-labelledby': city.geonameid }}

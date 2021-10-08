@@ -1,8 +1,10 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import { getAll, search } from './cityAPI';
+import { assoc, dissoc } from 'ramda';
 
 const initialState = {
   all: [],
+  selectedCities: {},
   links: {},
   status: 'idle',
   searchBy: '',
@@ -37,8 +39,26 @@ export const citySlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     searchBy: (state, { payload }) => {
-      console.log(payload);
       state.searchBy = payload;
+    },
+    addCity: (state, { payload }) => {
+      // I use current to get the current state, Here, `state` is a `proxy` object
+      const currentState = current(state);
+      //I use assoc to create a new object
+      const selectedCities = assoc(payload.geonameid, payload, currentState.selectedCities);
+      return {
+        ...currentState,
+        selectedCities,
+      };
+    },
+    removeCity: (state, { payload }) => {
+      const currentState = current(state);
+      //I use dissoc to create a new object
+      const selectedCities = dissoc(payload.geonameid, currentState.selectedCities);
+      return {
+        ...currentState,
+        selectedCities,
+      };
     }
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -65,7 +85,7 @@ export const citySlice = createSlice({
   },
 });
 
-export const { searchBy } = citySlice.actions;
+export const { searchBy, addCity, removeCity } = citySlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -73,5 +93,6 @@ export const { searchBy } = citySlice.actions;
 export const selectCities = (state) => state.city.all;
 export const selectLinks = (state) => state.city.links;
 export const selectSearchBy = (state) => state.city.searchBy;
+export const selectSelectedCities = (state) => state.city.selectedCities;
 
 export default citySlice.reducer;
