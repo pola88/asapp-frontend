@@ -1,6 +1,6 @@
 import { doRequest } from "../../helpers/request";
 
-export function getPref(url = `${process.env.REACT_APP_URL}/cities?limit=10`) {
+export function getPref(url = `${process.env.REACT_APP_URL}/preferences/cities?limit=100`) {
   return doRequest(url);
 }
 

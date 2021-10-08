@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
-import { getAll, search } from './cityAPI';
+import { getAll, search, getById } from './cityAPI';
 import { assoc, dissoc } from 'ramda';
+import { map } from 'ramda';
 
 const initialState = {
   all: [],
@@ -32,6 +33,17 @@ export const fetchBy = createAsyncThunk(
     return response;
   }
 );
+
+export const fetchSelectedByIds = createAsyncThunk(
+  'city/fetchSelectedByIds',
+  async (cityIds) => {
+    const fetchCitiesPromises = map(cityId => getById(cityId), cityIds);
+
+    const cities = await Promise.all(fetchCitiesPromises);
+    // The value we return becomes the `fulfilled` action payload
+    return cities;
+  }
+)
 
 export const citySlice = createSlice({
   name: 'city',
@@ -81,6 +93,9 @@ export const citySlice = createSlice({
         state.status = 'idle';
         state.all = action.payload.data;
         state.links = action.payload.links;
+      })
+      .addCase(fetchSelectedByIds.fulfilled, (state, action) => {
+        state.selectedCities = action.payload;
       });
   },
 });

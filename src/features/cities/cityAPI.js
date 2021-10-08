@@ -7,3 +7,7 @@ export function getAll(url = `${process.env.REACT_APP_URL}/cities?limit=10`) {
 export function search(value = '') {
   return doRequest(`${process.env.REACT_APP_URL}/cities?limit=10&filter=${value}`);
 }
+
+export function getById(cityId) {
+  return doRequest(`${process.env.REACT_APP_URL}/cities/${cityId}`);
+}
