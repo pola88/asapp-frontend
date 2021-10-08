@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 
 export function SelectedCitiesList() {
   const selectedCities = useSelector(selectSelectedCities);
-  const selectedRow = map(city => <Grid item xs><Chip key={`selected_${city.geonameid}`} label={`${city.name} (${city.subcountry})`} /></Grid>, values(selectedCities));
+  const selectedRow = map(city => <Grid key={`selected_${city.geonameid}`} item xs><Chip label={`${city.name} (${city.subcountry})`} /></Grid>, values(selectedCities));
   
   return (<div>
     <div>Selected cities:</div>

@@ -40,7 +40,7 @@ export function CityView() {
       { loadingCities || loadingPreferences
         ? <Loading/>
         : <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <CitySearch />
               <CityList />
             </Grid>

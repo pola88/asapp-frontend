@@ -95,7 +95,9 @@ export const citySlice = createSlice({
         state.links = action.payload.links;
       })
       .addCase(fetchSelectedByIds.fulfilled, (state, action) => {
-        state.selectedCities = action.payload;
+        action.payload.forEach( city => {
+          state.selectedCities[city.geonameid] = city;
+        });
       });
   },
 });
