@@ -39,7 +39,7 @@ export function SelectedCitiesList() {
   };
 
   return (<div>
-    <Typography className={styles.selectedTitle} variant="h5">Selected cities:</Typography>
+    <Typography className={styles.selectedTitle} variant="h5">Selected cities</Typography>
     <div className={styles.clearAllBtn}>
       <Link
         component="button"

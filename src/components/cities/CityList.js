@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { map } from 'ramda';
+import { map, isEmpty } from 'ramda';
 import { fetchAll, selectCities, selectLinks } from '../../features/cities/citySlice';
 import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import Paper from '@mui/material/Paper';
 import CityRow from './CityRow';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -21,7 +22,6 @@ export function CityList() {
 
   const cityRows = map(city => <CityRow key={`row_${city.geonameid}`} city={city} />, cities);
   return <div>
-    <div className={styles.Title}>City List</div>
     <Paper
       id="scrollablePaper"
       sx={{
@@ -45,7 +45,13 @@ export function CityList() {
             width: '100%',
             bgcolor: 'background.paper',
           }}>
-          {cityRows}
+          { isEmpty(cities)
+            ? <ListItem
+                disablePadding
+              > City not found
+              </ListItem>
+            : cityRows
+          }
         </List>
       </InfiniteScroll>
     </Paper>

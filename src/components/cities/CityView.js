@@ -7,7 +7,7 @@ import { CitySearch } from './CitySearch';
 import { SelectedCitiesList } from './SelectedCitiesList';
 import { Loading } from '../shared/Loading';
 import styles from './CityView.module.css';
-
+import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { isEmpty } from 'ramda';
 
@@ -41,6 +41,7 @@ export function CityView() {
         ? <Loading/>
         : <Grid container spacing={2}>
             <Grid item xs={3}>
+              <Typography className={styles.selectedTitle} variant="h5">City List</Typography>
               <CitySearch />
               <CityList />
             </Grid>
