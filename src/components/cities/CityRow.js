@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,8 +7,10 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch } from 'react-redux';
 import { selectSearchBy, addCity, removeCity } from '../../features/cities/citySlice';
-import { pathPreferences, selectCurrentPreferences } from '../../features/preferences/preferenceSlice';
+import { pathPreferences } from '../../features/preferences/preferenceSlice';
 import style from './CityRow.module.css';
+import { selectSelectedCities } from '../../features/cities/citySlice';
+import { isNil } from 'ramda';
 
 const highlightWord = (value, searchBy) => {
   if (searchBy && searchBy !== '') {
@@ -37,8 +39,8 @@ const highlightWord = (value, searchBy) => {
 export default function CityRow({ city }) {
   const dispatch = useDispatch();
   const searchBy = useSelector(selectSearchBy);
-  const currentPreferences = useSelector(selectCurrentPreferences);
-  const [checked, setChecked] = useState(currentPreferences.indexOf(city.geonameid) !== -1);
+  const selectedCities = useSelector(selectSelectedCities);
+  const [checked, setChecked] = useState(!isNil(selectedCities[city.geonameid]));
   
   const handleToggle = () => () => {
     if (checked) {
@@ -54,6 +56,11 @@ export default function CityRow({ city }) {
     
     setChecked(!checked);
   };
+
+  //Update the checked, when the selectedCities changes because the city was remove from the chip, for example
+  useEffect( () => {
+    setChecked(!isNil(selectedCities[city.geonameid]));
+  }, [selectedCities, city]);
 
   const primaryText = highlightWord(city.name, searchBy);
   const secondaryText = <span>

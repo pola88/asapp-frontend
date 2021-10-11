@@ -1,0 +1,8 @@
+.selectedTitle{
+  display: inline-block;
+}
+
+.clearAllBtn {
+  display: inline-block;
+  padding-left: 10px;
+}

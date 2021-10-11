@@ -75,6 +75,13 @@ export const citySlice = createSlice({
         ...currentState,
         selectedCities,
       };
+    },
+    clearSelectedCity: (state) => {
+      const currentState = current(state);
+      return {
+        ...currentState,
+        selectedCities: {},
+      };
     }
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -106,7 +113,7 @@ export const citySlice = createSlice({
   },
 });
 
-export const { searchBy, addCity, removeCity } = citySlice.actions;
+export const { searchBy, addCity, removeCity, clearSelectedCity } = citySlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

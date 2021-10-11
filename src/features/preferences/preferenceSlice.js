@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getPref, pathPref } from './preferenceAPI';
+import { map } from 'ramda';
 
 const initialState = {
   current: {},
@@ -30,6 +31,22 @@ export const pathPreferences = createAsyncThunk(
   }
 );
 
+export const removeAllPreferences = createAsyncThunk(
+  'preferences/removeAllPreferences',
+  async (cityIds) => {
+    const fetchCitiesPromises = map(cityId => 
+      pathPref({
+        [`${cityId}`]: false
+      })
+    , cityIds);
+
+    await Promise.all(fetchCitiesPromises);
+
+    return;
+  }
+)
+
+
 export const prefrenceSlice = createSlice({
   name: 'preference',
   initialState,
@@ -43,6 +60,10 @@ export const prefrenceSlice = createSlice({
       .addCase(getPreferences.fulfilled, (state, action) => {
         state.current = action.payload.data;
         state.links = action.payload.links;
+      })
+      .addCase(removeAllPreferences.fulfilled, (state, action) => {
+        state.current = {};
+        state.links = {};
       });
   },
 });
