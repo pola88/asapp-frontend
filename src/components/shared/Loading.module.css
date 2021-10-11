@@ -3,6 +3,7 @@
 }
 
 .Loading {
-  margin: auto;
-  width: 20%;
+  position: absolute;
+  top: 50%;
+  width: 100px;
 }

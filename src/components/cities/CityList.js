@@ -3,11 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { map, isEmpty } from 'ramda';
 import { fetchAll, selectCities, selectLinks } from '../../features/cities/citySlice';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import Paper from '@mui/material/Paper';
+import Alert from '@mui/material/Alert';
 import CityRow from './CityRow';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import styles from './CityList.module.css';
 
 export function CityList() {
   const cities = useSelector(selectCities);
@@ -21,16 +20,15 @@ export function CityList() {
   };
 
   const cityRows = map(city => <CityRow key={`row_${city.geonameid}`} city={city} />, cities);
-  return <div>
+  return(
     <Paper
       id="scrollablePaper"
+      elevation={0}
       sx={{
-        height: 500,
-        width: '100%',
-        maxWidth: 360,
+        maxHeight: '70vh',
         bgcolor: 'background.paper',
         position: 'relative',
-        overflow: 'auto'
+        overflow: 'auto',
       }}
     >
       <InfiniteScroll
@@ -46,14 +44,12 @@ export function CityList() {
             bgcolor: 'background.paper',
           }}>
           { isEmpty(cities)
-            ? <ListItem
-                disablePadding
-              > City not found
-              </ListItem>
+            ? <Alert variant="filled" severity="error">
+                City not found
+              </Alert>
             : cityRows
           }
         </List>
       </InfiniteScroll>
-    </Paper>
-  </div>
+    </Paper>);
 };

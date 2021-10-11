@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FormHelperText from '@mui/material/FormHelperText';
 import { useDebouncedCallback } from 'use-debounce';
+import styles from './CitySearch.module.css';
 
 export function CitySearch() {
   const dispatch = useDispatch();
@@ -24,20 +25,22 @@ export function CitySearch() {
   }, 500);
 
   return (
-    <FormControl variant="standard">
-      <Input
-        id="input-with-icon-adornment"
-        onChange={searchCity}
-        placeholder="Search city..."
-        startAdornment={
-          <InputAdornment position="start">
-            <FilterAltIcon />
-          </InputAdornment>
-        }
-      />
-      <FormHelperText id="component-helper-text">
-        Min 3 characters
-      </FormHelperText>
-    </FormControl>
+    <div className={styles.searchInput} >
+      <FormControl variant="standard" fullWidth={true} margin="dense">
+        <Input
+          id="input-with-icon-adornment"
+          onChange={searchCity}
+          placeholder="Type to filter by city name or country"
+          startAdornment={
+            <InputAdornment position="start">
+              <FilterAltIcon />
+            </InputAdornment>
+          }
+        />
+        <FormHelperText id="component-helper-text">
+          Min 3 characters
+        </FormHelperText>
+      </FormControl>
+    </div>
   )
 }

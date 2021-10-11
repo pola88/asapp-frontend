@@ -1,0 +1,15 @@
+.container {
+  max-height: 200px;
+  overflow: auto;
+  margin-bottom: 20px
+}
+
+.subheader {
+  min-height: 35px;
+}
+
+.clearAllBtn {
+  display: block;
+  float: right;
+  margin: 10px;
+}

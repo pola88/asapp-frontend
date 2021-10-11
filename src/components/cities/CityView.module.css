@@ -1,3 +1,20 @@
 .Container {
   margin: 10px
 }
+
+.column {
+  position: relative;
+  height: 90vh;
+  padding: 32px;
+}
+
+.divider {
+  height: 1px;
+  border-top: 1px solid #c3c3c3;
+  margin: 20px;
+}
+
+.title {
+  padding: 10px;
+  padding-bottom: 0;
+}

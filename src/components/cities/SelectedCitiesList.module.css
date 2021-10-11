@@ -2,7 +2,11 @@
   display: inline-block;
 }
 
-.clearAllBtn {
-  display: inline-block;
-  padding-left: 10px;
+.chipsContainer {
+  padding-top: 10px;
+  position: relative;
+}
+
+.chip {
+  margin: 5px !important;
 }

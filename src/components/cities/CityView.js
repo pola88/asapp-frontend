@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchAll, fetchSelectedByIds } from '../../features/cities/citySlice';
 import { getPreferences } from '../../features/preferences/preferenceSlice';
-import { CityList } from './CityList';
-import { CitySearch } from './CitySearch';
-import { SelectedCitiesList } from './SelectedCitiesList';
+import { FilterContainer } from './FilterContainer';
+import { SelectedContainer } from './SelectedContainer';
 import { Loading } from '../shared/Loading';
 import styles from './CityView.module.css';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { isEmpty } from 'ramda';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 export function CityView() {
   const dispatch = useDispatch();
@@ -40,13 +40,14 @@ export function CityView() {
       { loadingCities || loadingPreferences
         ? <Loading/>
         : <Grid container spacing={2}>
-            <Grid item xs={3}>
-              <Typography className={styles.selectedTitle} variant="h5">City List</Typography>
-              <CitySearch />
-              <CityList />
-            </Grid>
-            <Grid item xs={6}>
-              <SelectedCitiesList/>
+            <Grid item xs="12" sm="12" md="4">
+              <Paper className={styles.column} sx={{ maxHeight: '100%', overflow: 'auto' }}>  
+                <SelectedContainer />
+                <div className={styles.title}>
+                  <Typography className={styles.selectedTitle} variant="h5">Select your favorite cities</Typography>
+                </div>
+                <FilterContainer />
+              </Paper>
             </Grid>
           </Grid>
       }
