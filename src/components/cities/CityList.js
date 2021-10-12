@@ -5,7 +5,7 @@ import { fetchAll, selectCities, selectLinks } from '../../features/cities/cityS
 import List from '@mui/material/List'
 import Paper from '@mui/material/Paper'
 import Alert from '@mui/material/Alert'
-import CityRow from './CityRow'
+import { CityRow } from './CityRow'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 export function CityList () {

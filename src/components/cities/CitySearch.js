@@ -17,11 +17,11 @@ export function CitySearch () {
     const value = event.target.value
     if (value.length >= 3) {
       dispatch(fetchBy(value))
+      dispatch(searchBy(value))
     } else if (value.length === 0) {
       dispatch(fetchAll())
+      dispatch(searchBy(value))
     }
-
-    dispatch(searchBy(value))
   }, 500)
 
   return (
@@ -30,6 +30,7 @@ export function CitySearch () {
         <Input
           id="input-with-icon-adornment"
           onChange={searchCity}
+          name="search_by"
           placeholder="Type to filter by city name or country"
           startAdornment={
             <InputAdornment position="start">

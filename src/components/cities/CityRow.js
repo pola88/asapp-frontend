@@ -20,13 +20,13 @@ const highlightWord = (value, searchBy) => {
 
     if (index === 0) {
       return <span>
-              <span className={style.searchBy}>{value.slice(0, searchBy.length)}</span>
+              <span className={style.highlightWord}>{value.slice(0, searchBy.length)}</span>
               {value.slice(searchBy.length)}
             </span>
     } else {
       return <span>
               {value.slice(0, index)}
-              <span className={style.searchBy}>{value.slice(index, index + searchBy.length)}</span>
+              <span className={style.highlightWord}>{value.slice(index, index + searchBy.length)}</span>
               {value.slice(index + searchBy.length)}
             </span>
     }
@@ -35,7 +35,7 @@ const highlightWord = (value, searchBy) => {
   return value
 }
 
-export default function CityRow ({ city }) {
+export function CityRow ({ city }) {
   const dispatch = useDispatch()
   const searchBy = useSelector(selectSearchBy)
   const selectedCities = useSelector(selectSelectedCities)

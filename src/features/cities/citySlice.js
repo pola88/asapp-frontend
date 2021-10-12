@@ -97,7 +97,7 @@ export const citySlice = createSlice({
         state.links = action.payload.links
       })
       .addCase(fetchBy.pending, (state) => {
-        state.status = 'serching'
+        state.status = 'searching'
       })
       .addCase(fetchBy.fulfilled, (state, action) => {
         state.status = 'idle'
