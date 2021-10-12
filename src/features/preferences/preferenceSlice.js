@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getPref, pathPref } from './preferenceAPI';
-import { map } from 'ramda';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { getPref, pathPref } from './preferenceAPI'
+import { map } from 'ramda'
 
 const initialState = {
   current: {},
-  links: {},
-};
+  links: {}
+}
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(fetchAll())`. This
@@ -15,37 +15,33 @@ const initialState = {
 export const getPreferences = createAsyncThunk(
   'preferences/get',
   async () => {
-    const response = await getPref();
+    const response = await getPref()
     // The value we return becomes the `fulfilled` action payload
-    return response;
+    return response
   }
-);
+)
 
 export const pathPreferences = createAsyncThunk(
   'preferences/path',
   async (params) => {
     await pathPref({
       [`${params.geonameid}`]: params.selected
-    });
-    return;
+    })
   }
-);
+)
 
 export const removeAllPreferences = createAsyncThunk(
   'preferences/removeAllPreferences',
   async (cityIds) => {
-    const fetchCitiesPromises = map(cityId => 
+    const fetchCitiesPromises = map(cityId =>
       pathPref({
         [`${cityId}`]: false
       })
-    , cityIds);
+    , cityIds)
 
-    await Promise.all(fetchCitiesPromises);
-
-    return;
+    await Promise.all(fetchCitiesPromises)
   }
 )
-
 
 export const prefrenceSlice = createSlice({
   name: 'preference',
@@ -58,20 +54,20 @@ export const prefrenceSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getPreferences.fulfilled, (state, action) => {
-        state.current = action.payload.data;
-        state.links = action.payload.links;
+        state.current = action.payload.data
+        state.links = action.payload.links
       })
       .addCase(removeAllPreferences.fulfilled, (state, action) => {
-        state.current = {};
-        state.links = {};
-      });
-  },
-});
+        state.current = {}
+        state.links = {}
+      })
+  }
+})
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file.
-export const selectCurrentPreferences = (state) => state.preference.current;
-export const selectLinks = (state) => state.preference.links;
+export const selectCurrentPreferences = (state) => state.preference.current
+export const selectLinks = (state) => state.preference.links
 
-export default prefrenceSlice.reducer;
+export default prefrenceSlice.reducer

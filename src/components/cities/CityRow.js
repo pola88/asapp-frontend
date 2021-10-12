@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import { useDispatch } from 'react-redux';
-import { selectSearchBy, addCity, removeCity } from '../../features/cities/citySlice';
-import { pathPreferences } from '../../features/preferences/preferenceSlice';
-import style from './CityRow.module.css';
-import { selectSelectedCities } from '../../features/cities/citySlice';
-import { isNil } from 'ramda';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { useSelector, useDispatch } from 'react-redux'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import Checkbox from '@mui/material/Checkbox'
+import { selectSearchBy, addCity, removeCity, selectSelectedCities } from '../../features/cities/citySlice'
+import { pathPreferences } from '../../features/preferences/preferenceSlice'
+import style from './CityRow.module.css'
+import { isNil } from 'ramda'
 
 const highlightWord = (value, searchBy) => {
   if (searchBy && searchBy !== '') {
-    const index = value.toLowerCase().indexOf(searchBy.toLowerCase());
+    const index = value.toLowerCase().indexOf(searchBy.toLowerCase())
     if (index === -1) {
-      return value;
+      return value
     }
 
     if (index === 0) {
@@ -33,41 +32,41 @@ const highlightWord = (value, searchBy) => {
     }
   }
 
-  return value;
+  return value
 }
 
-export default function CityRow({ city }) {
-  const dispatch = useDispatch();
-  const searchBy = useSelector(selectSearchBy);
-  const selectedCities = useSelector(selectSelectedCities);
-  const [checked, setChecked] = useState(!isNil(selectedCities[city.geonameid]));
-  
+export default function CityRow ({ city }) {
+  const dispatch = useDispatch()
+  const searchBy = useSelector(selectSearchBy)
+  const selectedCities = useSelector(selectSelectedCities)
+  const [checked, setChecked] = useState(!isNil(selectedCities[city.geonameid]))
+
   const handleToggle = () => () => {
     if (checked) {
-      dispatch(removeCity(city));
+      dispatch(removeCity(city))
     } else {
-      dispatch(addCity(city));
+      dispatch(addCity(city))
     }
-    
+
     dispatch(pathPreferences({
       geonameid: city.geonameid,
       selected: !checked
-    }));
-    
-    setChecked(!checked);
-  };
+    }))
 
-  //Update the checked, when the selectedCities changes because the city was remove from the chip, for example
-  useEffect( () => {
-    setChecked(!isNil(selectedCities[city.geonameid]));
-  }, [selectedCities, city]);
+    setChecked(!checked)
+  }
 
-  const primaryText = highlightWord(city.name, searchBy);
+  // Update the checked, when the selectedCities changes because the city was remove from the chip, for example
+  useEffect(() => {
+    setChecked(!isNil(selectedCities[city.geonameid]))
+  }, [selectedCities, city])
+
+  const primaryText = highlightWord(city.name, searchBy)
   const secondaryText = <span>
     {highlightWord(city.subcountry, searchBy)}
     -
     {highlightWord(city.country, searchBy)}
-  </span>;
+  </span>
 
   return (
     <ListItem
@@ -86,5 +85,9 @@ export default function CityRow({ city }) {
         <ListItemText id={city.geonameid} primary={primaryText} secondary={secondaryText} />
       </ListItemButton>
     </ListItem>
-  );
+  )
+}
+
+CityRow.propTypes = {
+  city: PropTypes.object
 }

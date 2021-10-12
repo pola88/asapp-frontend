@@ -1,15 +1,14 @@
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
-import { getAll, search, getById } from './cityAPI';
-import { assoc, dissoc } from 'ramda';
-import { map } from 'ramda';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
+import { getAll, search, getById } from './cityAPI'
+import { assoc, dissoc, map } from 'ramda'
 
 const initialState = {
   all: [],
   selectedCities: {},
   links: {},
   status: 'idle',
-  searchBy: '',
-};
+  searchBy: ''
+}
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(fetchAll())`. This
@@ -19,29 +18,29 @@ const initialState = {
 export const fetchAll = createAsyncThunk(
   'city/fetchAll',
   async (nextPage) => {
-    const response = await getAll(nextPage);
+    const response = await getAll(nextPage)
     // The value we return becomes the `fulfilled` action payload
-    return response;
+    return response
   }
-);
+)
 
 export const fetchBy = createAsyncThunk(
   'city/fetchBy',
   async (value) => {
-    const response = await search(value);
+    const response = await search(value)
     // The value we return becomes the `fulfilled` action payload
-    return response;
+    return response
   }
-);
+)
 
 export const fetchSelectedByIds = createAsyncThunk(
   'city/fetchSelectedByIds',
   async (cityIds) => {
-    const fetchCitiesPromises = map(cityId => getById(cityId), cityIds);
+    const fetchCitiesPromises = map(cityId => getById(cityId), cityIds)
 
-    const cities = await Promise.all(fetchCitiesPromises);
+    const cities = await Promise.all(fetchCitiesPromises)
     // The value we return becomes the `fulfilled` action payload
-    return cities;
+    return cities
   }
 )
 
@@ -51,37 +50,37 @@ export const citySlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     searchBy: (state, { payload }) => {
-      const currentState = current(state);
+      const currentState = current(state)
       return {
         ...currentState,
-        searchBy: payload,
-      };
+        searchBy: payload
+      }
     },
     addCity: (state, { payload }) => {
       // I use current to get the current state, Here, `state` is a `proxy` object
-      const currentState = current(state);
-      //I use assoc to create a new object
-      const selectedCities = assoc(payload.geonameid, payload, currentState.selectedCities);
+      const currentState = current(state)
+      // I use assoc to create a new object
+      const selectedCities = assoc(payload.geonameid, payload, currentState.selectedCities)
       return {
         ...currentState,
-        selectedCities,
-      };
+        selectedCities
+      }
     },
     removeCity: (state, { payload }) => {
-      const currentState = current(state);
-      //I use dissoc to create a new object
-      const selectedCities = dissoc(payload.geonameid, currentState.selectedCities);
+      const currentState = current(state)
+      // I use dissoc to create a new object
+      const selectedCities = dissoc(payload.geonameid, currentState.selectedCities)
       return {
         ...currentState,
-        selectedCities,
-      };
+        selectedCities
+      }
     },
     clearSelectedCity: (state) => {
-      const currentState = current(state);
+      const currentState = current(state)
       return {
         ...currentState,
-        selectedCities: {},
-      };
+        selectedCities: {}
+      }
     }
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -89,38 +88,38 @@ export const citySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAll.pending, (state) => {
-        state.status = 'loading';
+        state.status = 'loading'
       })
       .addCase(fetchAll.fulfilled, (state, action) => {
-        state.status = 'idle';
-        const data = action.payload.data;
-        state.all = [...state.all, ...data];
-        state.links = action.payload.links;
+        state.status = 'idle'
+        const data = action.payload.data
+        state.all = [...state.all, ...data]
+        state.links = action.payload.links
       })
       .addCase(fetchBy.pending, (state) => {
-        state.status = 'serching';
+        state.status = 'serching'
       })
       .addCase(fetchBy.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.all = action.payload.data;
-        state.links = action.payload.links;
+        state.status = 'idle'
+        state.all = action.payload.data
+        state.links = action.payload.links
       })
       .addCase(fetchSelectedByIds.fulfilled, (state, action) => {
-        action.payload.forEach( city => {
-          state.selectedCities[city.geonameid] = city;
-        });
-      });
-  },
-});
+        action.payload.forEach(city => {
+          state.selectedCities[city.geonameid] = city
+        })
+      })
+  }
+})
 
-export const { searchBy, addCity, removeCity, clearSelectedCity } = citySlice.actions;
+export const { searchBy, addCity, removeCity, clearSelectedCity } = citySlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file.
-export const selectCities = (state) => state.city.all;
-export const selectLinks = (state) => state.city.links;
-export const selectSearchBy = (state) => state.city.searchBy;
-export const selectSelectedCities = (state) => state.city.selectedCities;
+export const selectCities = (state) => state.city.all
+export const selectLinks = (state) => state.city.links
+export const selectSearchBy = (state) => state.city.searchBy
+export const selectSelectedCities = (state) => state.city.selectedCities
 
-export default citySlice.reducer;
+export default citySlice.reducer

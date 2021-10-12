@@ -1,26 +1,25 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { map, isEmpty } from 'ramda';
-import { fetchAll, selectCities, selectLinks } from '../../features/cities/citySlice';
-import List from '@mui/material/List';
-import Paper from '@mui/material/Paper';
-import Alert from '@mui/material/Alert';
-import CityRow from './CityRow';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { map, isEmpty } from 'ramda'
+import { fetchAll, selectCities, selectLinks } from '../../features/cities/citySlice'
+import List from '@mui/material/List'
+import Paper from '@mui/material/Paper'
+import Alert from '@mui/material/Alert'
+import CityRow from './CityRow'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
-export function CityList() {
-  const cities = useSelector(selectCities);
-  const links = useSelector(selectLinks);
+export function CityList () {
+  const cities = useSelector(selectCities)
+  const links = useSelector(selectLinks)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const nextPage = () => {
-    console.log(links);
-    dispatch(fetchAll(links.next));
-  };
+    dispatch(fetchAll(links.next))
+  }
 
-  const cityRows = map(city => <CityRow key={`row_${city.geonameid}`} city={city} />, cities);
-  return(
+  const cityRows = map(city => <CityRow key={`row_${city.geonameid}`} city={city} />, cities)
+  return (
     <Paper
       id="scrollablePaper"
       elevation={0}
@@ -28,7 +27,7 @@ export function CityList() {
         maxHeight: '70vh',
         bgcolor: 'background.paper',
         position: 'relative',
-        overflow: 'auto',
+        overflow: 'auto'
       }}
     >
       <InfiniteScroll
@@ -41,7 +40,7 @@ export function CityList() {
         <List
           sx={{
             width: '100%',
-            bgcolor: 'background.paper',
+            bgcolor: 'background.paper'
           }}>
           { isEmpty(cities)
             ? <Alert variant="filled" severity="error">
@@ -51,5 +50,5 @@ export function CityList() {
           }
         </List>
       </InfiniteScroll>
-    </Paper>);
+    </Paper>)
 };
