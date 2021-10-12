@@ -61,7 +61,7 @@ describe('CitySearch', () => {
     const dummyDispatch = jest.fn()
     useDispatchMock.mockReturnValue(dummyDispatch)
 
-    jest.spyOn(citySlice, 'fetchAll')
+    jest.spyOn(citySlice, 'fetchBy')
 
     render(<CitySearch />)
 
@@ -78,6 +78,6 @@ describe('CitySearch', () => {
 
     expect(dummyDispatch.mock.calls.length).toEqual(2)
     expect(dummyDispatch).toHaveBeenCalledWith({ payload: '', type: 'city/searchBy' })
-    expect(citySlice.fetchAll).toHaveBeenCalled()
+    expect(citySlice.fetchBy).toHaveBeenCalled()
   })
 })

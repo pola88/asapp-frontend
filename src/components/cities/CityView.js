@@ -39,7 +39,7 @@ export function CityView () {
       { loadingCities || loadingPreferences
         ? <Loading/>
         : <Grid container spacing={2}>
-            <Grid item xs="12" sm="12" md="4">
+            <Grid item xs={12} sm={12} md={4}>
               <Paper className={styles.column} sx={{ maxHeight: '100%', overflow: 'auto' }}>
                 <SelectedContainer />
                 <div className={styles.title}>

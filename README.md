@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+This project is to resolve the challenge from ASAPP [Link](https://t.lever-analytics.com/email-link?dest=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1nmz8BuMGjVU1YwsQhjHYZCsg-By_6DVFwKLpclWAgsA%2Fedit%3Fts%3D5e384dc1%23heading%3Dh.89vf84rtv8zr&eid=b07ff87d-76af-47a5-be01-704bdb85f40a&idx=1&token=6B_kfT68W8Q_bwFx42hYSyxhCLc)
+To accomplish that, I used React + Template Redux
 
 ## Available Scripts
 
@@ -17,6 +18,10 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `npm test:eslint`
+
+Run eslint to find and fix problmes in the code
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
@@ -27,18 +32,18 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Some improvements
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## UI/UX
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Add the option to remove the city from the selected list
+- Add option to remove all selected city in one click
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## API
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- it would be better if we can get the information of the city in batches instead of doing a request for each city
+- it would be better if we can add/remove selected city in batches instead of doing a request for each city
 
-## Learn More
+### Kown Issue
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Only show the first 100 preferences, I am not sure how to make it performance 

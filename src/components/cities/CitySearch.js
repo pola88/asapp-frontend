@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { fetchBy, fetchAll, searchBy } from '../../features/cities/citySlice'
+import { fetchBy, searchBy } from '../../features/cities/citySlice'
 import Input from '@mui/material/Input'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
@@ -19,7 +19,7 @@ export function CitySearch () {
       dispatch(fetchBy(value))
       dispatch(searchBy(value))
     } else if (value.length === 0) {
-      dispatch(fetchAll())
+      dispatch(fetchBy(''))
       dispatch(searchBy(value))
     }
   }, 500)
