@@ -38,23 +38,24 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### Some improvements
+## Some improvements
 
-## UI/UX
+### UI/UX
 
 - [x] Add the option to remove the city from the selected list
 - [x] Add option to remove all selected city in one click
 - [ ] Another improvement, it could be the way that we show the cities, now we have a list is showing all time, maybe we can change this, adding a multiselect instead the list and the filter input. I mean, the list only show up after the user starts writing in the filter input
-      Example Design:
-      ![No selected cities](images/1.png?raw=true)
-      ![Searching city](images/2.png?raw=true)
-      ![Selecting city](images/3.png?raw=true)
-      ![With chips](images/4.png?raw=true)
-## API
+      Example Design: <br />
+      <img src="images/1.png" width="300" height="600">
+      <img src="images/2.png" width="300" height="600">
+      <img src="images/3.png" width="300" height="600">
+      <img src="images/4.png" width="300" height="600">
+
+### API
 
 - it would be better if we can get the information of the city in batches instead of doing a request for each city
 - it would be better if we can add/remove selected city in batches instead of doing a request for each city
 
-### Kown Issue
+## Kown Issue
 
 - Only show the first 100 preferences, I am not sure how to make it performance 
