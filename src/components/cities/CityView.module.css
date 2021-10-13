@@ -8,6 +8,10 @@
   padding: 32px;
 }
 
+.filterContainer {
+  height: 60vh;
+}
+
 .divider {
   height: 1px;
   border-top: 1px solid #c3c3c3;

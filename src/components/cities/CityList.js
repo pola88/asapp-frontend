@@ -24,7 +24,7 @@ export function CityList () {
       id="scrollablePaper"
       elevation={0}
       sx={{
-        maxHeight: '70vh',
+        maxHeight: '80%',
         bgcolor: 'background.paper',
         position: 'relative',
         overflow: 'auto'

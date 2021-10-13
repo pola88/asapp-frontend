@@ -1,5 +1,11 @@
+# ASAPP Challenge
+
 This project is to resolve the challenge from ASAPP [Link](https://t.lever-analytics.com/email-link?dest=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1nmz8BuMGjVU1YwsQhjHYZCsg-By_6DVFwKLpclWAgsA%2Fedit%3Fts%3D5e384dc1%23heading%3Dh.89vf84rtv8zr&eid=b07ff87d-76af-47a5-be01-704bdb85f40a&idx=1&token=6B_kfT68W8Q_bwFx42hYSyxhCLc)
-To accomplish that, I used React + Template Redux
+To accomplish that, I used Create-React-App + Redux
+
+## Set up
+
+Before start the project, you have to add `.env` in the root. See `.env.example` to see with params you have to set
 
 ## Available Scripts
 
@@ -36,9 +42,14 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## UI/UX
 
-- Add the option to remove the city from the selected list
-- Add option to remove all selected city in one click
-
+- [x] Add the option to remove the city from the selected list
+- [x] Add option to remove all selected city in one click
+- [ ] Another improvement, it could be the way that we show the cities, now we have a list is showing all time, maybe we can change this, adding a multiselect instead the list and the filter input. I mean, the list only show up after the user starts writing in the filter input
+      Example Design:
+      ![No selected cities](images/1.png?raw=true)
+      ![Searching city](images/2.png?raw=true)
+      ![Selecting city](images/3.png?raw=true)
+      ![With chips](images/4.png?raw=true)
 ## API
 
 - it would be better if we can get the information of the city in batches instead of doing a request for each city
